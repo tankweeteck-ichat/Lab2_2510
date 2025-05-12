@@ -35,25 +35,32 @@ def calc_average(datalist):
 
 def find_min_max(datalist):
     print("find_min_max")
-
-    # The sort() function alters the list. In order
-    # not to corrupt the datalist, make a copy of it,
-    # and do the sorting on the copy.
-    floatlist = datalist.copy()   # make a copy
-    floatlist.sort()
-    print("MIN = ", floatlist[0])
-    print("MAX = ", floatlist[-1])
-    return (floatlist[0], floatlist[-1])
+    sortedlist = sort_temperature(datalist)
+    print("MIN = ", sortedlist[0])
+    print("MAX = ", sortedlist[-1])
+    return (sortedlist[0], sortedlist[-1])
 
 
-
-def sort_temperature():
+def sort_temperature(originalList):
     print("sort_temperature")
+    # The sort() function alters the list. In order
+    # not to corrupt the originalList, make a copy of it,
+    # and do the sorting on the copy.
+    floatlist = originalList.copy()   # make a copy
+    floatlist.sort()
+    print("Sorted list = ", floatlist)
+    return floatlist
 
 
-def calc_median_temperature():
+def calc_median_temperature(datalist):
     print("calc_median_temperature")
-
+    sortedlist = sort_temperature(datalist)
+    listLen = len(sortedlist)
+    if listLen % 2 == 1:   # Odd number, just take the middle data
+        median = sortedlist[listLen//2]
+    else:  # Even number, take the average of the two data at the middle
+        median = (sortedlist[listLen//2 - 1] + sortedlist[listLen//2])/2
+    return median
 
 
 def main():
@@ -68,8 +75,9 @@ def main():
     print("*** Minimum is ", minimum)
     print("*** Maximum is ", maximum)
 
+    medianTemp = calc_median_temperature(resultlist)
+    print("*** Median is ", medianTemp)    
     print("*** End of program")
-
 
 
 if __name__ == "__main__":
